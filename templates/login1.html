@@ -1,0 +1,88 @@
+<html>
+<head>
+<title>GoEasy Test</title>
+
+<script type="text/javascript" src="https://cdn.goeasy.io/goeasy.js"></script>
+<script type="text/javascript">
+    if(typeof GoEasy !== 'undefined'){
+        var goEasy = new GoEasy({
+            appkey: 'BC-2a4759e3e1d245d99ab0fb9316090594',
+            userId:"222",
+            username:"22",
+            onConnected:function(){
+                alert("Connect to GoEasy success.");
+            } ,
+            onDisconnected:function(){
+                alert("Disconnect to GoEasy server.");
+            } ,
+            onConnectFailed:function(error){
+                alert("Connect to GoEasy failed, error code: "+ error.code+" Error message: "+ error.content);
+            }
+        });
+    }
+
+    subscribe();
+    function subscribe(){
+             goEasy.subscribe({
+                channel: '你好',
+                onMessage: function(message){
+                    alert('Meessage received:'+message.content);
+                },
+                onSuccess:function(){
+
+                    alert("Subscribe the Channel successfully.");
+
+                },
+
+                onFailed: function(error){
+
+                    alert("Subscribe the Channel failed, error code: "+ error.code + " error message: "+ error.content);
+
+                }
+
+            });
+
+    }
+
+     function publishMessage(){
+          goEasy.publish({
+                channel: 'notification',
+                message: 'You received a new notification',
+                onSuccess:function(){
+
+                    alert("Publish message success.");
+
+                },
+                onFailed: function(error){
+
+                    alert("Publish message failed, error code: "+ error.code +" Error message: "+ error.content);
+
+                }
+            });
+
+     }
+
+     function unsubscribe(){
+                goEasy.unsubscribe({
+                    channel:"notification",
+                    onSuccess: function(){
+
+                        alert("Cancel Subscription successfully.");
+
+                    },
+                    onFailed: function(error){
+
+                        alert("Cancel the subscrition failed, error code: "+ error.code + "error message: "+ error.content);
+                    }
+
+                });
+            }
+
+ </script>
+</head>
+<body>
+  <input type="button" value="publish" onclick="publishMessage()"/>
+  <input type="button" value="unsubscribe" onclick="unsubscribe()"/>
+  <input type="button" value="subscribe" onclick="subscribe()"/>
+</body>
+</html>

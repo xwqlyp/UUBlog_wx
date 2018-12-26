@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+
+<div>
+    {% if status == "200" %}
+        <div>{{ statusDES }}</div>
+        <div>{{ info }}</div>
+        <form action="/login/" method="POST">
+            <input type="hidden" name="uuid" value="{{ uuid }}">
+            <input type="submit" value="信息显示">
+        </form>
+    {% elif status == '201' %}
+        <div>{{ statusDES }}</div>
+        <div><img src="{% static img %}"/></div>
+        <form action="/index/" method="POST">
+            <input type="hidden" name="uuid" value="{{ uuid }}">
+            <input type="submit" value="提交修改">
+        </form>
+    {% else %}
+        <div>{{ statusDES }}</div>
+        <div><img src="{% static img %}"/></div>
+        <form action="/index/" method="POST">
+            <input type="hidden" name="uuid" value="{{ uuid }}">
+            <input type="submit" value="提交修改">
+        </form>
+    {% endif %}
+
+</div>
+</body>
+</html>

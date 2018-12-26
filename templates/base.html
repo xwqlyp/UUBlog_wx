@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="https://cdn.goeasy.io/goeasy.js"></script>
+    <script type="text/javascript">
+        var goEasy = new GoEasy({
+            appkey: "你的key"
+        });
+        goEasy.subscribe({
+            channel: "c1-" + groupId + "-" + projectId + "-" + userId,
+            onMessage: function (message) {
+                if (confirm(message.content)) {
+                    window.location.reload();
+                } else {
+                    window.location.reload();
+                }
+            }
+        });
+    </script>
+
+</head>
+<body>
+
+<div>
+    {% if status == "200" %}
+        <div>{{ statusDES }}</div>
+        <div>{{ info }}</div>
+        <form action="/login/" method="POST">
+            <input type="hidden" name="uuid" value="{{ uuid }}">
+            <input type="submit" value="信息显示">
+        </form>
+    {% elif status == '201' %}
+        <div>{{ statusDES }}</div>
+        <div><img src="{% static img %}"/></div>
+        <form action="/index/" method="POST">
+            <input type="hidden" name="uuid" value="{{ uuid }}">
+            <input type="submit" value="提交修改">
+        </form>
+    {% else %}
+        <div>{{ statusDES }}</div>
+        <div><img src="{% static img %}"/></div>
+        <form action="/index/" method="POST">
+            <input type="hidden" name="uuid" value="{{ uuid }}">
+            <input type="submit" value="提交修改">
+        </form>
+    {% endif %}
+
+</div>
+</body>
+</html>
